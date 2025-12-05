@@ -1,0 +1,88 @@
+name: Build Android APK
+
+on:
+  push:
+    tags:
+      - 'v*'  # 当推送版本标签时触发
+
+permissions:
+  contents: write
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+    
+    - name: Setup Android SDK
+      uses: android-actions/setup-android@v3
+    
+    - name: Grant execute permission for gradlew
+      run: chmod +x android-app/gradlew
+    
+    - name: Build Debug APK
+      run: |
+        cd android-app
+        ./gradlew assembleDebug --stacktrace
+    
+    - name: Build Release APK (unsigned)
+      run: |
+        cd android-app
+        ./gradlew assembleRelease --stacktrace
+      continue-on-error: true  # Release 可能需要签名，失败也继续
+    
+    - name: Get version
+      id: version
+      run: |
+        echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+    
+    - name: Rename APK files
+      run: |
+        cd android-app/app/build/outputs/apk
+        
+        # Debug APK
+        if [ -f debug/app-debug.apk ]; then
+          mv debug/app-debug.apk debug/clipboard-bridge-android-${{ steps.version.outputs.VERSION }}-debug.apk
+        fi
+        
+        # Release APK (如果存在)
+        if [ -f release/app-release-unsigned.apk ]; then
+          mv release/app-release-unsigned.apk release/clipboard-bridge-android-${{ steps.version.outputs.VERSION }}-release-unsigned.apk
+        fi
+        
+        if [ -f release/app-release.apk ]; then
+          mv release/app-release.apk release/clipboard-bridge-android-${{ steps.version.outputs.VERSION }}-release.apk
+        fi
+    
+    - name: Upload Debug APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: clipboard-bridge-android-debug.apk
+        path: android-app/app/build/outputs/apk/debug/*.apk
+    
+    - name: Upload Release APK (if exists)
+      uses: actions/upload-artifact@v4
+      if: hashFiles('android-app/app/build/outputs/apk/release/*.apk') != ''
+      with:
+        name: clipboard-bridge-android-release.apk
+        path: android-app/app/build/outputs/apk/release/*.apk
+      continue-on-error: true
+    
+    - name: Add APK to Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          android-app/app/build/outputs/apk/debug/*.apk
+          android-app/app/build/outputs/apk/release/*.apk
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

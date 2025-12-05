@@ -28,9 +28,13 @@
 
 访问 [Releases 页面](https://github.com/copypasteengine/clipboard-bridge/releases) 下载对应平台的文件：
 
+**桌面版本：**
 - **Windows**: `clipboard-bridge-windows-amd64.zip`
 - **Linux**: `clipboard-bridge-linux-amd64.tar.gz`
 - **macOS**: `clipboard-bridge-macos-arm64.tar.gz`
+
+**Android 版本：**
+- **Android**: `clipboard-bridge-android-*-debug.apk`
 
 ### 2. 安装运行
 

@@ -163,7 +163,7 @@ jobs:
         body: |
           ## 📦 Clipboard Bridge ${{ steps.version.outputs.VERSION }}
           
-          ### 🎯 支持的平台
+          ### 🎯 桌面版本
           
           | 平台 | 架构 | 文件 |
           |------|------|------|
@@ -171,20 +171,36 @@ jobs:
           | Linux | x64 | `clipboard-bridge-linux-amd64.tar.gz` |
           | macOS | Apple Silicon (M1/M2/M3) | `clipboard-bridge-macos-arm64.tar.gz` |
           
-          > **注意**: macOS Intel 版本需要本地编译或使用付费 GitHub runner。
+          ### 📱 移动版本
+          
+          | 平台 | 文件 | 说明 |
+          |------|------|------|
+          | Android | `clipboard-bridge-android-*-debug.apk` | Debug 版本，开箱即用 |
+          | iOS | - | 使用快捷指令（见文档） |
+          
+          > **注意**: 
+          > - macOS Intel 版本需要本地编译或使用付费 GitHub runner
+          > - Android Release 版本需要配置签名密钥
           
           ### 📥 下载说明
           
+          **🖥️ 桌面版本:**
+          
           **Windows:**
-          1. 下载 `ClipboardBridge-windows-amd64.zip`
-          2. 解压到任意目录
-          3. 双击运行 `ClipboardBridge.exe`
+          1. 下载 `clipboard-bridge-windows-amd64.zip`
+          2. 解压并运行 `clipboard-bridge.exe`
           
           **Linux / macOS:**
           1. 下载对应平台的 `.tar.gz` 文件
-          2. 解压: `tar -xzf ClipboardBridge-*.tar.gz`
+          2. 解压: `tar -xzf clipboard-bridge-*.tar.gz`
           3. 添加执行权限: `chmod +x clipboard-bridge`
           4. 运行: `./clipboard-bridge`
+          
+          **📱 Android 版本:**
+          1. 下载 `clipboard-bridge-android-*-debug.apk`
+          2. 在 Android 设备上安装
+          3. 打开应用，配置服务器地址
+          4. 开始同步！
           
           ### 📝 配置文件
           
