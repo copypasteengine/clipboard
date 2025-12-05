@@ -18,20 +18,17 @@ jobs:
           - os: windows-latest
             output: clipboard-bridge.exe
             archive: clipboard-bridge-windows-amd64.zip
-            build_flags: '-ldflags "-H windowsgui"'
           
           # Linux x64 - 原生构建
           - os: ubuntu-latest
             output: clipboard-bridge
             archive: clipboard-bridge-linux-amd64.tar.gz
-            build_flags: ""
           
           # macOS (通用) - 原生构建
           # 注意: GitHub 免费 runner 只提供 ARM64 (Apple Silicon)
           - os: macos-latest
             output: clipboard-bridge
             archive: clipboard-bridge-macos-arm64.tar.gz
-            build_flags: ""
     
     runs-on: ${{ matrix.os }}
     
@@ -93,15 +90,9 @@ jobs:
           Write-Host "Current PATH: $env:PATH"
         }
         
-        # 构建 - 使用 Invoke-Expression 正确处理参数
-        $buildCmd = "go build -v"
-        if ("${{ matrix.build_flags }}" -ne "") {
-          $buildCmd += " ${{ matrix.build_flags }}"
-        }
-        $buildCmd += " -o ${{ matrix.output }}"
-        
-        Write-Host "Executing: $buildCmd"
-        Invoke-Expression $buildCmd
+        # 构建 - Windows 需要隐藏窗口标志
+        Write-Host "Building Windows executable..."
+        go build -v -ldflags="-H windowsgui" -o ${{ matrix.output }}
         
         if ($LASTEXITCODE -ne 0) { 
           Write-Host "Build failed with exit code $LASTEXITCODE"
@@ -121,7 +112,7 @@ jobs:
         go version
         go env
         echo "CGO_ENABLED=$CGO_ENABLED"
-        go build -v ${{ matrix.build_flags }} -o ${{ matrix.output }} 2>&1 | tee build.log || (cat build.log && exit 1)
+        go build -v -o ${{ matrix.output }} 2>&1 | tee build.log || (cat build.log && exit 1)
         echo "Build completed successfully"
         ls -lh ${{ matrix.output }}
     
