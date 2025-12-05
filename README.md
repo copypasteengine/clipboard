@@ -1,18 +1,45 @@
-# 📋 Clipboard Bridge - 跨设备剪贴板同步服务
+# 📋 Clipboard Bridge - 跨设备剪贴板同步
 
-一个轻量级的桌面剪贴板 HTTP 服务，通过简单的 REST API 实现电脑与手机之间的剪贴板同步。支持 Windows、Linux 和 macOS 系统。
+一个轻量级的剪贴板同步解决方案，通过 HTTP API 实现电脑与手机之间的无缝剪贴板共享。
+
+## 🎯 适用场景
+
+### ✅ 推荐使用场景
+
+**📱 Android + 🖥️ Windows/Linux/macOS**
+- ✅ **Android 手机与任意系统电脑同步**
+- ✅ 提供完整的原生 Android App
+- ✅ Material Design 3 现代化界面
+- ✅ 一键同步，体验流畅
+
+**📱 iPhone + 🪟 Windows / 🐧 Linux**  
+- ✅ **iOS 与 Windows/Linux 电脑同步**
+- ✅ 通过 iOS 快捷指令实现
+- ✅ 支持 Siri 语音控制
+- ✅ 可添加到主屏幕小组件
+
+### 💡 不推荐场景
+
+**📱 iPhone + 🍎 Mac**
+- ⚠️ Apple 生态内建 Universal Clipboard（通用剪贴板）
+- ⚠️ iCloud 自动同步，体验更好
+- ⚠️ 无需第三方工具
+
+> **说明**: macOS 和 iOS 之间已有苹果原生的剪贴板同步功能，建议直接使用系统功能。本项目主要解决**跨生态**（Android ↔ 电脑，iOS ↔ Windows/Linux）的剪贴板同步需求。
 
 ## ✨ 主要特性
 
-- 🌐 **HTTP API** - 简单的 REST 接口，任何设备都能访问
-- 🔄 **实时监听** - Windows 系统级监听，Linux/macOS 轮询监听
+- 🌐 **HTTP REST API** - 简单易用，任何设备都能访问
+- 📱 **Android 原生 App** - Material Design 3 精美界面
+- 🔄 **智能同步** - 自动判断同步方向
 - 🔒 **Token 认证** - 可选的访问令牌保护
-- 🚀 **开机自启** - Windows 支持自动配置
-- 📊 **系统托盘** - 友好的托盘图标和菜单管理
-- 📝 **日志记录** - 支持 debug/info/error 三级日志
-- ⚡ **轻量高效** - CPU ~0.1%，内存 ~15MB
+- 📊 **系统托盘** - 友好的托盘图标和菜单
+- ⚡ **轻量高效** - CPU <0.1%，内存 ~15MB
+- 📝 **完整日志** - 便于故障排查
 
 ## 🖥️ 支持的平台
+
+### 桌面服务
 
 | 平台 | 架构 | 剪贴板监听 | 开机自启 |
 |------|------|------------|----------|
@@ -20,92 +47,127 @@
 | Linux | x64 | ⚡ 轮询（1秒） | 📝 手动配置 |
 | macOS | Apple Silicon | ⚡ 轮询（1秒） | 📝 手动配置 |
 
-> **注意**: macOS Intel 用户可使用 Rosetta 2 运行 ARM64 版本
+### 移动客户端
 
-## 📥 安装和使用
+| 平台 | 类型 | 功能 |
+|------|------|------|
+| Android | 原生 App (APK) | 智能同步、配置保存、实时预览 |
+| iOS | 快捷指令 | 智能同步、Siri 控制、自动化 |
 
-### 1. 下载程序
+## 📥 快速开始
 
-访问 [Releases 页面](https://github.com/copypasteengine/clipboard-bridge/releases) 下载对应平台的文件：
+### 第一步：安装桌面服务
 
-**桌面版本：**
-- **Windows**: `clipboard-bridge-windows-amd64.zip`
-- **Linux**: `clipboard-bridge-linux-amd64.tar.gz`
-- **macOS**: `clipboard-bridge-macos-arm64.tar.gz`
-
-**Android 版本：**
-- **Android**: `clipboard-bridge-android-*-debug.apk`
-
-### 2. 安装运行
+访问 [Releases 页面](https://github.com/copypasteengine/clipboard-bridge/releases) 下载：
 
 **Windows:**
 ```powershell
-# 1. 解压 zip 文件
-# 2. 双击 clipboard-bridge.exe
-# 3. 程序会在系统托盘显示图标
-# 4. 服务自动启动在 5678 端口
+# 1. 下载 clipboard-bridge-windows-amd64.zip
+# 2. 解压到任意文件夹
+# 3. 双击 clipboard-bridge.exe
+# 4. 查看系统托盘图标 ✓
 ```
 
-**Linux / macOS:**
+**Linux:**
 ```bash
-# 1. 解压
-tar -xzf clipboard-bridge-*.tar.gz
-
-# 2. 添加执行权限
+wget https://github.com/copypasteengine/clipboard-bridge/releases/latest/download/clipboard-bridge-linux-amd64.tar.gz
+tar -xzf clipboard-bridge-linux-amd64.tar.gz
 chmod +x clipboard-bridge
-
-# 3. 运行
 ./clipboard-bridge
-
-# 4. (可选) 移动到系统路径
-sudo mv clipboard-bridge /usr/local/bin/
 ```
 
-### 3. 配置文件
-
-程序首次运行会创建 `config.json`：
-
-```json
-{
-  "port": 5678,
-  "token": "",
-  "auto_start": true,
-  "auto_firewall": true,
-  "log_level": "info"
-}
+**macOS:**
+```bash
+curl -LO https://github.com/copypasteengine/clipboard-bridge/releases/latest/download/clipboard-bridge-macos-arm64.tar.gz
+tar -xzf clipboard-bridge-macos-arm64.tar.gz
+chmod +x clipboard-bridge
+./clipboard-bridge
 ```
 
-**配置说明：**
+### 第二步：安装手机客户端
 
-| 配置项 | 类型 | 默认值 | 说明 |
-|--------|------|--------|------|
-| `port` | 整数 | 5678 | 服务监听端口（1024-65535） |
-| `token` | 字符串 | "" | API 访问令牌，空则不验证 |
-| `auto_start` | 布尔 | true | 是否开机自启 |
-| `auto_firewall` | 布尔 | true | 是否自动配置防火墙（仅 Windows） |
-| `log_level` | 字符串 | "info" | 日志级别：debug/info/error |
+#### Android - 原生 App（推荐 ⭐）
 
-修改配置后需要重启程序。
+1. **下载安装 APK**
+   - 下载 `clipboard-bridge-android-v1.0.0-debug.apk`
+   - 在设置中允许安装未知应用
+   - 安装 APK
+
+2. **配置服务器**
+   - 打开 App
+   - 点击右上角 ⚙️ 图标
+   - 输入电脑 IP：`http://192.168.1.100:5678`
+   - 保存
+
+3. **开始同步**
+   - 点击"智能同步"按钮
+   - ✓ 完成！
+
+**App 功能：**
+- ✅ 一键获取电脑剪贴板
+- ✅ 一键发送到电脑
+- ✅ 智能同步（自动判断方向）
+- ✅ 实时显示两端剪贴板内容
+- ✅ 自动保存配置
+- ✅ Material Design 3 界面
+
+#### iOS - 快捷指令
+
+**基础配置（从电脑获取）:**
+```
+1. 打开"快捷指令" App
+2. 创建新快捷指令
+3. 添加动作：
+   - "获取 URL 的内容"
+     URL: http://你的电脑IP:5678/pull
+     方法: GET
+   - "设定剪贴板"
+   - "显示通知": ✓ 已同步
+```
+
+详细配置参见文档末尾的 [iOS 快捷指令配置](#ios---快捷指令配置)
+
+## 🎯 使用场景示例
+
+### 场景 1: 在手机上打开电脑复制的网址
+
+```
+1. 在电脑浏览器复制网址
+2. 在手机 App 点击"从电脑获取"
+3. 在手机浏览器粘贴打开
+```
+
+### 场景 2: 将手机上的验证码发送到电脑
+
+```
+1. 手机收到短信验证码，复制
+2. 点击"发送到电脑"
+3. 在电脑上粘贴验证码
+```
+
+### 场景 3: 编辑文档时跨设备复制内容
+
+```
+1. 在手机上看到有用的文字，复制
+2. 智能同步到电脑
+3. 在电脑 Word 文档中粘贴
+```
 
 ## 🔌 API 接口
 
-服务启动后，可通过 HTTP 接口访问剪贴板。
+桌面服务提供 REST API，可以被任何客户端访问：
 
-### 获取剪贴板内容
+### 获取剪贴板
 
 ```http
 GET http://电脑IP:5678/pull
 X-Auth-Token: your-token
 ```
 
-**响应：**
-```
-Hello World
-```
+**响应：** 剪贴板文本内容
 
-### 设置剪贴板内容
+### 设置剪贴板
 
-**方式 1：表单提交**
 ```http
 POST http://电脑IP:5678/push
 X-Auth-Token: your-token
@@ -114,20 +176,9 @@ Content-Type: application/x-www-form-urlencoded
 text=Hello World
 ```
 
-**方式 2：直接提交**
-```http
-POST http://电脑IP:5678/push
-X-Auth-Token: your-token
+**响应：** `OK`
 
-Hello World
-```
-
-**响应：**
-```
-OK
-```
-
-### 获取剪贴板元数据
+### 获取元数据
 
 ```http
 GET http://电脑IP:5678/meta
@@ -149,300 +200,273 @@ GET http://电脑IP:5678/ping
 X-Auth-Token: your-token
 ```
 
-**响应：**
-```
-PONG
-```
+**响应：** `PONG`
 
-### Token 认证
+## ⚙️ 配置文件
 
-如果设置了 `token`，请求需要携带认证：
+程序首次运行会创建 `config.json`：
 
-**方式 1：HTTP 头**
-```http
-X-Auth-Token: your-token
-```
-
-**方式 2：URL 参数**
-```http
-http://电脑IP:5678/pull?token=your-token
+```json
+{
+  "port": 5678,
+  "token": "",
+  "auto_start": true,
+  "auto_firewall": true,
+  "log_level": "info"
+}
 ```
 
-## 📱 手机端集成
+| 配置项 | 默认值 | 说明 |
+|--------|--------|------|
+| `port` | 5678 | 服务端口（1024-65535） |
+| `token` | "" | API 令牌，空则不验证 |
+| `auto_start` | true | 开机自启（Windows 自动配置） |
+| `auto_firewall` | true | 自动防火墙规则（仅 Windows） |
+| `log_level` | "info" | 日志级别：debug/info/error |
 
-### Android - 原生应用（推荐）
+## 📱 移动端详细说明
 
-我们提供了完整的 Android 原生应用！
+### Android App（推荐使用 ⭐⭐⭐）
+
+**下载安装：**
+1. 从 [Releases](https://github.com/copypasteengine/clipboard-bridge/releases) 下载 APK
+2. 在手机上安装（需允许未知来源）
+3. 打开 App 并配置服务器地址
 
 **功能特性：**
-- ✅ Material Design 3 现代化 UI
-- ✅ 智能同步（自动判断方向）
-- ✅ 实时显示双端剪贴板内容
-- ✅ 自动保存服务器配置
-- ✅ 支持深色模式
+- 🎨 **Material Design 3** - 现代化界面
+- 🔄 **智能同步** - 自动判断同步方向
+- 👀 **实时预览** - 同时显示手机和电脑剪贴板
+- 💾 **配置保存** - 自动记住服务器设置
+- 🌓 **深色模式** - 跟随系统主题
+- ⚡ **一键操作** - 简单快捷
+
+**界面预览：**
+```
+┌──────────────────────────┐
+│ Clipboard Bridge     ⚙️  │
+├──────────────────────────┤
+│ ● 已连接              🔄 │
+│ http://192.168.1.100:5678│
+├──────────────────────────┤
+│ 📱 手机剪贴板         🔄 │
+│ Hello from phone         │
+├──────────────────────────┤
+│ 💻 电脑剪贴板         🔄 │
+│ Hello from PC            │
+│ 更新: 2分钟前            │
+├──────────────────────────┤
+│  [ ⬇️  从电脑获取 ]      │
+│  [ ⬆️  发送到电脑 ]      │
+│  [ 🔄  智能同步 ]        │
+└──────────────────────────┘
+```
+
+**使用步骤：**
+1. 复制内容到手机或电脑
+2. 打开 App，点击对应按钮
+3. 内容已同步 ✓
+
+详细说明：[android-app/README.md](./android-app/README.md)
+
+### iOS 快捷指令配置
+
+**适用场景：** iOS 与 Windows/Linux 电脑同步
+
+> **提示**: 如果你使用 iPhone + Mac 组合，建议直接使用 Apple 的通用剪贴板功能（需登录同一 iCloud 账号），无需本工具。
+
+**快速配置 - 从电脑获取：**
+
+1. 打开"快捷指令" App → 点击 "+"
+2. 添加以下动作：
+
+```
+获取 URL 的内容
+  URL: http://192.168.1.100:5678/pull
+  方法: GET
+  (如果设置了 Token，添加标头: X-Auth-Token)
+
+设定剪贴板
+  内容: [获取 URL 的内容结果]
+
+显示通知
+  内容: ✓ 已从电脑同步
+```
+
+**快速配置 - 发送到电脑：**
+
+```
+获取剪贴板
+
+获取 URL 的内容
+  URL: http://192.168.1.100:5678/push
+  方法: POST
+  请求体: 表单
+  字段: text = [剪贴板]
+  (如果设置了 Token，添加标头: X-Auth-Token)
+
+显示通知
+  内容: ✓ 已发送到电脑
+```
 
 **使用方法：**
+- 直接运行快捷指令
+- 对 Siri 说"运行剪贴板同步"
+- 添加到主屏幕小组件
+- 设置自动化触发
 
-1. **从源码编译**（推荐）
-   ```bash
-   cd android-app
-   # 使用 Android Studio 打开，或命令行构建：
-   ./gradlew assembleDebug
-   ```
-   详见 [Android App 文档](./android-app/README.md)
-
-2. **使用 HTTP Shortcuts**
-   
-   无需编程，5 分钟配置完成。详见 [Android 集成指南](./ANDROID.md)
-
-### iOS - 快捷指令
-
-#### 基本配置
-
-1. 打开 iOS"快捷指令" App
-2. 创建新快捷指令
-3. 添加以下动作：
-
-**从电脑获取剪贴板：**
-```
-1. "获取 URL 的内容"
-   - URL: http://你的电脑IP:5678/pull
-   - 方法: GET
-   - 添加标头: X-Auth-Token = your-token
-
-2. "设定剪贴板"
-   - 内容: [上一步的结果]
-
-3. "显示通知"
-   - 内容: ✓ 已从电脑同步
-```
-
-**发送到电脑剪贴板：**
-```
-1. "获取剪贴板"
-
-2. "获取 URL 的内容"
-   - URL: http://你的电脑IP:5678/push
-   - 方法: POST
-   - 请求体: 表单
-   - 字段: text = [剪贴板内容]
-   - 添加标头: X-Auth-Token = your-token
-
-3. "显示通知"
-   - 内容: ✓ 已发送到电脑
-```
-
-#### 智能同步快捷指令
-
-创建一个更智能的版本，自动判断同步方向：
-
-```
-1. 获取电脑剪贴板（/meta 接口）
-2. 获取 iOS 剪贴板
-3. 比较两者内容：
-   - 相同 → 提示"已同步"
-   - iOS 为空 → 从电脑同步
-   - 电脑为空 → 发送到电脑
-   - 都有但不同 → 弹出菜单选择
-```
-
-详细配置步骤参见 [iOS 快捷指令配置指南](https://github.com/copypasteengine/clipboard-bridge/wiki)
-
-### Android - HTTP Shortcuts 或 Tasker
-
-#### 使用 HTTP Shortcuts App
-
-1. 安装 [HTTP Shortcuts](https://play.google.com/store/apps/details?id=ch.rmy.android.http_shortcuts)
-2. 创建快捷方式：
-
-**获取剪贴板：**
-```
-Name: 从电脑获取
-URL: http://你的电脑IP:5678/pull
-Method: GET
-Headers: X-Auth-Token: your-token
-Post-execution Actions:
-  - Copy Response to Clipboard
-  - Show Toast: "✓ 已同步"
-```
-
-**发送剪贴板：**
-```
-Name: 发送到电脑
-URL: http://你的电脑IP:5678/push
-Method: POST
-Headers: X-Auth-Token: your-token
-Request Body: {clipboard}
-Post-execution Actions:
-  - Show Toast: "✓ 已发送"
-```
-
-#### 使用 Tasker
-
-1. 安装 [Tasker](https://play.google.com/store/apps/details?id=net.dinglisch.android.taskerm)
-2. 创建 Task → HTTP Request
-3. 配置 URL、方法和标头
-4. 添加到主屏幕或通过手势触发
-
-### 自定义客户端
-
-任何支持 HTTP 的工具都可以访问，例如：
-
-**cURL (命令行):**
-```bash
-# 获取
-curl -H "X-Auth-Token: your-token" http://192.168.1.100:5678/pull
-
-# 设置
-curl -X POST -H "X-Auth-Token: your-token" \
-  -d "text=Hello from terminal" \
-  http://192.168.1.100:5678/push
-```
-
-**Python 脚本:**
-```python
-import requests
-
-headers = {'X-Auth-Token': 'your-token'}
-url = 'http://192.168.1.100:5678'
-
-# 获取
-text = requests.get(f'{url}/pull', headers=headers).text
-
-# 设置
-requests.post(f'{url}/push', data={'text': 'Hello'}, headers=headers)
-```
-
-## ⚙️ 系统托盘菜单
+## 📊 系统托盘菜单
 
 右键点击托盘图标：
 
-| 菜单项 | 说明 |
+| 菜单项 | 功能 |
 |--------|------|
-| 📡 服务地址 | 显示外部访问地址 |
+| 📡 服务地址 | 显示外部访问地址（如 `http://192.168.1.100:5678`） |
 | 💻 本机地址 | 显示本机测试地址 |
-| 🚀 开机自启 | 切换开机自启状态 |
+| 🚀 开机自启 | 切换开机自启状态（Windows） |
 | ▶️ 启动/停止服务 | 手动控制服务 |
 | 📄 打开日志文件 | 查看运行日志 |
 | ❌ 退出 | 退出程序 |
 
 ## 🔒 安全建议
 
-1. **设置 Token** - 在 `config.json` 中设置 `token`，避免未授权访问
-2. **局域网使用** - 建议仅在可信网络（家庭/办公室）使用
+### 基础安全
+
+1. **设置 Token** - 在 `config.json` 中设置 `token`，防止未授权访问
+2. **局域网使用** - 仅在家庭/办公室可信网络使用
 3. **防火墙配置**
-   - Windows：程序会自动尝试添加规则
-   - Linux：`sudo ufw allow 5678/tcp`
-   - macOS：在系统设置中允许入站连接
-4. **HTTPS** - 如需加密传输，建议使用 Nginx/Caddy 反向代理
+   - Windows: 程序自动添加规则
+   - Linux: `sudo ufw allow 5678/tcp`
+   - macOS: 系统设置 → 防火墙
 
-## 📝 日志文件
+### 高级安全
 
-日志位置：`clipboard_bridge.log`（程序同目录）
+如需加密传输，可配置 Nginx/Caddy 反向代理：
 
-**日志级别：**
-- `error` - 仅错误
-- `info` - 关键操作和错误（默认）
-- `debug` - 所有详细信息
-
-**示例日志：**
-```
-[2024-12-05 10:30:15] [INFO] 程序启动
-[2024-12-05 10:30:15] [INFO] 剪贴板监听已启动
-[2024-12-05 10:30:15] [INFO] 🚀 剪贴板服务已启动
-[2024-12-05 10:30:15] [INFO]    外部访问: http://192.168.1.100:5678
-[2024-12-05 10:31:20] [INFO] 收到 Push 请求 (来自 192.168.1.200:54321)
-[2024-12-05 10:31:20] [INFO] ✓ 成功写入剪贴板，内容长度: 15 字节
-```
-
-## 🛠️ 从源码编译
-
-### 环境要求
-
-- Go 1.20+
-- GCC（Windows 需要 MinGW）
-
-### 编译步骤
-
-```bash
-# 1. 克隆仓库
-git clone https://github.com/copypasteengine/clipboard-bridge.git
-cd clipboard-bridge
-
-# 2. 安装依赖
-go mod download
-
-# 3. 编译
-
-# Windows (无窗口)
-go build -ldflags="-H windowsgui" -o clipboard-bridge.exe
-
-# Linux
-go build -o clipboard-bridge
-
-# macOS
-go build -o clipboard-bridge
-```
-
-### Linux 依赖
-
-```bash
-# Ubuntu/Debian - X11
-sudo apt-get install xclip libgtk-3-dev
-
-# Ubuntu/Debian - Wayland
-sudo apt-get install wl-clipboard
-
-# Fedora
-sudo dnf install xclip gtk3-devel
-
-# Arch
-sudo pacman -S xclip gtk3
+```nginx
+server {
+    listen 443 ssl;
+    ssl_certificate /path/to/cert.pem;
+    ssl_certificate_key /path/to/key.pem;
+    
+    location / {
+        proxy_pass http://localhost:5678;
+    }
+}
 ```
 
 ## 🐛 常见问题
 
 ### Q1: 手机无法连接
 
-**A:** 检查：
-- 手机和电脑在同一局域网
-- 电脑防火墙允许 5678 端口
-- 使用电脑的局域网 IP（不是 127.0.0.1）
-- 程序正在运行（查看托盘图标）
+**检查清单：**
+- [ ] 手机和电脑在同一 WiFi 网络
+- [ ] 电脑防火墙允许 5678 端口
+- [ ] 使用电脑的局域网 IP（如 192.168.1.100）
+- [ ] 桌面服务正在运行（查看托盘图标）
+
+**测试方法：**
+在手机浏览器访问 `http://电脑IP:5678/ping`，如果显示 `PONG`，说明连接正常。
 
 ### Q2: Token 验证失败
 
-**A:** 确保：
-- `config.json` 中的 `token` 与请求中的一致
-- Token 区分大小写
-- HTTP 头名称正确：`X-Auth-Token`
+- 确保 Token 完全一致（区分大小写）
+- Android: 在设置对话框中输入 Token
+- iOS: 在快捷指令中添加 HTTP 头 `X-Auth-Token`
 
-### Q3: iOS 快捷指令报错
+### Q3: 中文乱码
 
-**A:** 检查：
-- URL 格式正确，包含 `http://`
-- IP 地址正确（电脑的局域网 IP）
-- Token 正确（如果设置了）
-- 电脑服务正在运行
+服务端使用 UTF-8 编码，不应该有乱码。如遇到请提交 Issue。
 
 ### Q4: Linux 剪贴板不工作
 
-**A:** 安装依赖：
+安装依赖：
 ```bash
-# X11
+# Ubuntu/Debian (X11)
 sudo apt-get install xclip
 
-# Wayland
+# Ubuntu/Debian (Wayland)
 sudo apt-get install wl-clipboard
+```
+
+## 🛠️ 从源码编译
+
+### 桌面服务
+
+```bash
+# 克隆仓库
+git clone https://github.com/copypasteengine/clipboard-bridge.git
+cd clipboard-bridge
+
+# 安装依赖
+go mod download
+
+# 编译
+# Windows
+go build -ldflags="-H windowsgui" -o clipboard-bridge.exe
+
+# Linux/macOS
+go build -o clipboard-bridge
+```
+
+**Linux 额外依赖：**
+```bash
+sudo apt-get install xclip libgtk-3-dev  # Ubuntu/Debian
+```
+
+### Android App
+
+```bash
+cd android-app
+
+# 使用 Android Studio 打开项目
+# 或命令行构建：
+./gradlew assembleDebug
+
+# APK 位置：app/build/outputs/apk/debug/app-debug.apk
+```
+
+详细构建说明：[android-app/BUILDING.md](./android-app/BUILDING.md)
+
+## 📝 日志文件
+
+日志位置：`clipboard_bridge.log`（程序同目录）
+
+**查看日志：**
+- Windows: 托盘菜单 → "📄 打开日志文件"
+- Linux/macOS: `tail -f clipboard_bridge.log`
+
+**示例日志：**
+```
+[2024-12-05 10:30:15] [INFO] 程序启动
+[2024-12-05 10:30:15] [INFO] 🚀 剪贴板服务已启动
+[2024-12-05 10:30:15] [INFO]    外部访问: http://192.168.1.100:5678
+[2024-12-05 10:31:20] [INFO] 收到 Push 请求 (来自 192.168.1.200)
+[2024-12-05 10:31:20] [INFO] ✓ 成功写入剪贴板，15 字节
 ```
 
 ## 🔧 技术栈
 
-- **语言**: Go 1.20
-- **GUI**: getlantern/systray
-- **剪贴板**: atotto/clipboard
-- **Windows C API**: CGo
-- **HTTP**: 标准库 net/http
+**桌面服务：**
+- Go 1.20 + CGo
+- getlantern/systray（系统托盘）
+- atotto/clipboard（剪贴板）
+- net/http（HTTP 服务器）
+
+**Android App：**
+- Kotlin + Jetpack Compose
+- Material Design 3
+- OkHttp（HTTP 客户端）
+- Coroutines（异步）
+- DataStore（配置）
+
+## 📚 相关文档
+
+- **[QUICKSTART.md](./QUICKSTART.md)** - 5 分钟快速上手指南 ⭐
+- **[ANDROID.md](./ANDROID.md)** - Android HTTP Shortcuts 详细配置
+- **[android-app/README.md](./android-app/README.md)** - Android App 使用说明
+- **[android-app/BUILDING.md](./android-app/BUILDING.md)** - Android App 开发指南
+- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - 系统架构设计文档
 
 ## 📄 许可证
 
@@ -452,11 +476,83 @@ MIT License
 
 欢迎提交 Issue 和 Pull Request！
 
-## 📧 联系方式
-
 - **GitHub**: https://github.com/copypasteengine/clipboard-bridge
 - **Issues**: https://github.com/copypasteengine/clipboard-bridge/issues
+- **Releases**: https://github.com/copypasteengine/clipboard-bridge/releases
+
+---
+
+## 📱 iOS 快捷指令配置
+
+### 基本配置 - 从电脑获取
+
+1. 打开"快捷指令" App
+2. 点击右上角 "+"
+3. 添加以下动作：
+
+```
+"获取 URL 的内容"
+  URL: http://192.168.1.100:5678/pull  ← 改为你的电脑 IP
+  方法: GET
+  
+  如果设置了 Token，点击"显示更多" → 打开"标头"
+    添加标头: X-Auth-Token = your-token
+
+"设定剪贴板"
+  内容: [获取 URL 的内容]
+
+"显示通知"
+  内容: ✓ 已从电脑同步
+```
+
+### 基本配置 - 发送到电脑
+
+```
+"获取剪贴板"
+
+"获取 URL 的内容"
+  URL: http://192.168.1.100:5678/push  ← 改为你的电脑 IP
+  方法: POST
+  请求体: 表单
+  添加字段: text = [剪贴板]
+  
+  如果设置了 Token:
+    添加标头: X-Auth-Token = your-token
+
+"显示通知"
+  内容: ✓ 已发送到电脑
+```
+
+### 进阶配置 - 智能同步
+
+创建一个能自动判断方向的快捷指令：
+
+1. 获取电脑剪贴板（`/meta` 接口）
+2. 获取 iPhone 剪贴板
+3. 比较内容自动处理：
+   - 相同 → 提示"已同步"
+   - iPhone 为空 → 从电脑同步
+   - 电脑为空 → 发送到电脑
+   - 都有但不同 → 弹出选择菜单
+
+### 使用技巧
+
+**添加到主屏幕：**
+- 长按主屏幕 → 小组件 → 快捷指令
+- 选择你的剪贴板同步快捷指令
+
+**Siri 语音：**
+- "嘿 Siri，运行剪贴板同步"
+
+**自动化触发：**
+- 连接特定 WiFi 时自动运行
+- 打开特定 App 时自动运行
 
 ---
 
 **享受跨设备剪贴板同步的便利！** 🎉
+
+**主要使用场景：**
+- ✅ **Android ↔ Windows/Linux/macOS** - 使用 Android App
+- ✅ **iOS ↔ Windows/Linux** - 使用快捷指令
+- ⚠️ **iOS ↔ macOS** - 建议使用 Apple 通用剪贴板
