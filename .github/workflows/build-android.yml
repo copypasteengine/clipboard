@@ -26,18 +26,28 @@ jobs:
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
     
+    - name: Setup Gradle
+      uses: gradle/gradle-build-action@v2
+      with:
+        gradle-version: 8.2
+    
+    - name: Initialize Gradle Wrapper
+      run: |
+        cd android-app
+        gradle wrapper --gradle-version 8.2
+    
     - name: Grant execute permission for gradlew
       run: chmod +x android-app/gradlew
     
     - name: Build Debug APK
       run: |
         cd android-app
-        ./gradlew assembleDebug --stacktrace
+        ./gradlew assembleDebug --stacktrace --no-daemon
     
     - name: Build Release APK (unsigned)
       run: |
         cd android-app
-        ./gradlew assembleRelease --stacktrace
+        ./gradlew assembleRelease --stacktrace --no-daemon
       continue-on-error: true  # Release 可能需要签名，失败也继续
     
     - name: Get version
