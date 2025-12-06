@@ -33,6 +33,7 @@ A lightweight clipboard synchronization solution that enables seamless clipboard
 
 - 🌐 **HTTP REST API** - Simple and accessible from any device
 - 📱 **Native Android App** - Beautiful Material Design 3 UI
+- 🌍 **Multi-Language** - English, 简体中文, 日本語
 - 🔄 **Smart Sync** - Auto-detect sync direction
 - 🔒 **Token Authentication** - Optional access token protection
 - 📊 **System Tray** - User-friendly tray icon and menu
