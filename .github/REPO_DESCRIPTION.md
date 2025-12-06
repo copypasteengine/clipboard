@@ -22,30 +22,69 @@ https://github.com/copypasteengine/clipboard-bridge
 
 ### 主题标签（Topics）
 
-建议添加以下标签（在仓库页面点击 ⚙️ 添加）：
+GitHub Topics 规则：
+- ✅ 只能包含小写字母、数字和连字符
+- ✅ 不能以连字符开头
+- ✅ 最多 50 个字符
+- ✅ 最多添加 20 个标签
 
+**推荐标签（已验证，符合规则）：**
+
+**核心标签（优先添加这些）：**
 ```
 clipboard
 clipboard-sync
-clipboard-manager
 cross-platform
-android
-ios
+android-app
+golang
+kotlin
+```
+
+**功能标签：**
+```
+http-api
+rest-api
+clipboard-manager
+clipboard-sharing
+remote-clipboard
+```
+
+**技术标签：**
+```
+jetpack-compose
+material-design
+material-design-3
+system-tray
+```
+
+**平台标签：**
+```
 windows
 linux
 macos
-http-api
-rest-api
-golang
-kotlin
-jetpack-compose
-material-design
-system-tray
-clipboard-sharing
-remote-clipboard
-sync-tool
-productivity
+android
+ios-shortcuts
 ```
+
+**类型标签：**
+```
+sync-tool
+productivity-tools
+developer-tools
+```
+
+**添加方法（逐个添加）：**
+1. 点击仓库 About 的 ⚙️ 图标
+2. 在 Topics 输入框输入一个标签
+3. 按回车确认
+4. 重复步骤 2-3
+5. 最后点击 "Save changes"
+
+**⚠️ 注意：**
+- 一次只添加一个标签
+- 全部小写
+- 使用连字符分隔，不用空格
+- 最多添加 20 个
 
 ## 配置步骤
 
