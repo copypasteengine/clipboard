@@ -49,5 +49,13 @@
     <string name="time_minutes_ago">%d 分钟前</string>
     <string name="time_hours_ago">%d 小时前</string>
     <string name="time_days_ago">%d 天前</string>
+    
+    <!-- 小部件 -->
+    <string name="widget_description">快速剪贴板同步按钮</string>
+    
+    <!-- 快捷方式 -->
+    <string name="smart_sync_description">自动检测并同步剪贴板</string>
+    <string name="pull_description">从电脑获取剪贴板</string>
+    <string name="push_description">发送剪贴板到电脑</string>
 </resources>
 

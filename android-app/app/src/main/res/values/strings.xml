@@ -49,4 +49,12 @@
     <string name="time_minutes_ago">%d minutes ago</string>
     <string name="time_hours_ago">%d hours ago</string>
     <string name="time_days_ago">%d days ago</string>
+    
+    <!-- Widget -->
+    <string name="widget_description">Quick clipboard sync buttons</string>
+    
+    <!-- Shortcuts -->
+    <string name="smart_sync_description">Auto-detect and sync clipboard</string>
+    <string name="pull_description">Pull clipboard from PC</string>
+    <string name="push_description">Push clipboard to PC</string>
 </resources>

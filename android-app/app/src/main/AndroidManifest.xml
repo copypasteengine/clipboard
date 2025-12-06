@@ -17,6 +17,7 @@
         android:theme="@style/Theme.ClipboardBridge"
         tools:targetApi="31">
         
+        <!-- 主 Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -25,7 +26,54 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
+            <!-- App Shortcuts 支持 -->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
+        
+        <!-- 快捷方式处理 Activity -->
+        <activity
+            android:name=".ShortcutActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="com.copypasteengine.clipboardbridge.PULL" />
+                <action android:name="com.copypasteengine.clipboardbridge.PUSH" />
+                <action android:name="com.copypasteengine.clipboardbridge.SMART_SYNC" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <!-- 后台同步服务 -->
+        <service
+            android:name=".service.ClipboardSyncService"
+            android:exported="false" />
+        
+        <!-- 桌面小部件 -->
+        <receiver
+            android:name=".widget.ClipboardWidget"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info" />
+        </receiver>
+        
+        <!-- 快速设置磁贴 (Android 7.0+) -->
+        <service
+            android:name=".quicksettings.ClipboardTileService"
+            android:exported="true"
+            android:icon="@drawable/ic_sync"
+            android:label="@string/smart_sync"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

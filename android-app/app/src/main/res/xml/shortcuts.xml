@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- 智能同步 -->
+    <shortcut
+        android:shortcutId="smart_sync"
+        android:enabled="true"
+        android:icon="@drawable/ic_sync"
+        android:shortcutShortLabel="@string/smart_sync"
+        android:shortcutLongLabel="@string/smart_sync_description">
+        <intent
+            android:action="com.copypasteengine.clipboardbridge.SMART_SYNC"
+            android:targetPackage="com.copypasteengine.clipboardbridge"
+            android:targetClass="com.copypasteengine.clipboardbridge.ShortcutActivity" />
+    </shortcut>
+
+    <!-- 从电脑获取 -->
+    <shortcut
+        android:shortcutId="pull"
+        android:enabled="true"
+        android:icon="@drawable/ic_download"
+        android:shortcutShortLabel="@string/pull_from_pc"
+        android:shortcutLongLabel="@string/pull_description">
+        <intent
+            android:action="com.copypasteengine.clipboardbridge.PULL"
+            android:targetPackage="com.copypasteengine.clipboardbridge"
+            android:targetClass="com.copypasteengine.clipboardbridge.ShortcutActivity" />
+    </shortcut>
+
+    <!-- 发送到电脑 -->
+    <shortcut
+        android:shortcutId="push"
+        android:enabled="true"
+        android:icon="@drawable/ic_upload"
+        android:shortcutShortLabel="@string/push_to_pc"
+        android:shortcutLongLabel="@string/push_description">
+        <intent
+            android:action="com.copypasteengine.clipboardbridge.PUSH"
+            android:targetPackage="com.copypasteengine.clipboardbridge"
+            android:targetClass="com.copypasteengine.clipboardbridge.ShortcutActivity" />
+    </shortcut>
+
+</shortcuts>
+
