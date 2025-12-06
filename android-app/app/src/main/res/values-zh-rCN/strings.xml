@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 应用名称 -->
+    <string name="app_name">剪贴板桥接</string>
+    
+    <!-- 主屏幕 -->
+    <string name="settings">设置</string>
+    <string name="connected">已连接</string>
+    <string name="disconnected">未连接</string>
+    <string name="test_connection">测试连接</string>
+    
+    <!-- 剪贴板卡片 -->
+    <string name="phone_clipboard">手机剪贴板</string>
+    <string name="pc_clipboard">电脑剪贴板</string>
+    <string name="empty">(空)</string>
+    <string name="refresh">刷新</string>
+    <string name="updated_at">更新时间: %s</string>
+    
+    <!-- 操作按钮 -->
+    <string name="pull_from_pc">从电脑获取</string>
+    <string name="push_to_pc">发送到电脑</string>
+    <string name="smart_sync">智能同步</string>
+    
+    <!-- 设置对话框 -->
+    <string name="server_settings">服务器设置</string>
+    <string name="server_address">服务器地址</string>
+    <string name="server_address_hint">http://192.168.1.100:5678</string>
+    <string name="token_optional">Token（可选）</string>
+    <string name="token_hint">留空表示不使用 Token</string>
+    <string name="hint_same_network">提示：请确保手机和电脑在同一局域网内</string>
+    <string name="save">保存</string>
+    <string name="cancel">取消</string>
+    
+    <!-- 消息提示 -->
+    <string name="please_configure_server">请先配置服务器地址</string>
+    <string name="connection_success">✓ 连接成功</string>
+    <string name="connection_failed">✗ 连接失败: %s</string>
+    <string name="sync_success_pull">✓ 已从电脑同步</string>
+    <string name="sync_success_push">✓ 已发送到电脑</string>
+    <string name="sync_failed">✗ 同步失败: %s</string>
+    <string name="send_failed">✗ 发送失败: %s</string>
+    <string name="already_synced">✓ 剪贴板已同步</string>
+    <string name="clipboard_empty">手机剪贴板为空</string>
+    <string name="both_empty">两边都是空的</string>
+    <string name="content_different">内容不同，请手动选择同步方向</string>
+    
+    <!-- 时间格式 -->
+    <string name="time_just_now">刚刚</string>
+    <string name="time_minutes_ago">%d 分钟前</string>
+    <string name="time_hours_ago">%d 小时前</string>
+    <string name="time_days_ago">%d 天前</string>
+</resources>
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- アプリ名 -->
+    <string name="app_name">Clipboard Bridge</string>
+    
+    <!-- メイン画面 -->
+    <string name="settings">設定</string>
+    <string name="connected">接続済み</string>
+    <string name="disconnected">未接続</string>
+    <string name="test_connection">接続テスト</string>
+    
+    <!-- クリップボードカード -->
+    <string name="phone_clipboard">スマホのクリップボード</string>
+    <string name="pc_clipboard">PCのクリップボード</string>
+    <string name="empty">(空)</string>
+    <string name="refresh">更新</string>
+    <string name="updated_at">更新: %s</string>
+    
+    <!-- アクションボタン -->
+    <string name="pull_from_pc">PCから取得</string>
+    <string name="push_to_pc">PCに送信</string>
+    <string name="smart_sync">スマート同期</string>
+    
+    <!-- 設定ダイアログ -->
+    <string name="server_settings">サーバー設定</string>
+    <string name="server_address">サーバーアドレス</string>
+    <string name="server_address_hint">http://192.168.1.100:5678</string>
+    <string name="token_optional">トークン（オプション）</string>
+    <string name="token_hint">トークンなしの場合は空欄</string>
+    <string name="hint_same_network">ヒント：スマホとPCが同じネットワークにあることを確認してください</string>
+    <string name="save">保存</string>
+    <string name="cancel">キャンセル</string>
+    
+    <!-- メッセージ -->
+    <string name="please_configure_server">サーバーアドレスを設定してください</string>
+    <string name="connection_success">✓ 接続成功</string>
+    <string name="connection_failed">✗ 接続失敗: %s</string>
+    <string name="sync_success_pull">✓ PCから同期しました</string>
+    <string name="sync_success_push">✓ PCに送信しました</string>
+    <string name="sync_failed">✗ 同期失敗: %s</string>
+    <string name="send_failed">✗ 送信失敗: %s</string>
+    <string name="already_synced">✓ クリップボードは同期済みです</string>
+    <string name="clipboard_empty">スマホのクリップボードが空です</string>
+    <string name="both_empty">両方とも空です</string>
+    <string name="content_different">内容が異なります。同期方向を手動で選択してください</string>
+    
+    <!-- 時刻フォーマット -->
+    <string name="time_just_now">たった今</string>
+    <string name="time_minutes_ago">%d 分前</string>
+    <string name="time_hours_ago">%d 時間前</string>
+    <string name="time_days_ago">%d 日前</string>
+</resources>
+
