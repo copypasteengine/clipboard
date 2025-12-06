@@ -114,6 +114,12 @@ chmod +x clipboard-bridge
 - ✅ Auto-save configuration
 - ✅ Material Design 3 interface
 
+**Quick Access (No need to open app!):**
+- 🏠 **Home Screen Widget** - Direct sync buttons on home screen
+- 📱 **App Shortcuts** - Long-press app icon for quick actions
+- ⚡ **Quick Settings Tile** - Swipe down notification bar to sync
+- 🎯 **Faster than iOS Shortcuts!**
+
 #### iOS - Shortcuts
 
 **Applicable:** iOS with Windows/Linux computers

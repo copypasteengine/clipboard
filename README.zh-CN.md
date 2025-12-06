@@ -114,6 +114,12 @@ chmod +x clipboard-bridge
 - ✅ 自动保存配置
 - ✅ Material Design 3 界面
 
+**快捷访问（无需打开 App！）：**
+- 🏠 **桌面小部件** - 主屏幕直接放同步按钮
+- 📱 **App Shortcuts** - 长按图标快速操作
+- ⚡ **快速设置磁贴** - 下拉通知栏一键同步
+- 🎯 **比 iOS 快捷指令更快！**
+
 #### iOS - 快捷指令
 
 **基础配置（从电脑获取）:**
@@ -267,10 +273,14 @@ X-Auth-Token: your-token
 
 **使用步骤：**
 1. 复制内容到手机或电脑
-2. 打开 App，点击对应按钮
-3. 内容已同步 ✓
+2. 快速访问：
+   - 下拉通知栏 → 点击"Smart Sync"磁贴，或
+   - 点击主屏幕小部件按钮，或
+   - 打开 App 点击同步按钮
+3. 完成！✓
 
-详细说明：[android-app/README.md](./android-app/README.md)
+**快捷访问指南：** [android-app/QUICK_ACCESS.md](./android-app/QUICK_ACCESS.md)  
+**应用使用手册：** [android-app/README.md](./android-app/README.md)
 
 ### iOS 快捷指令配置
 
